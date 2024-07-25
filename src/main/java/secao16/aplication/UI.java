@@ -1,5 +1,6 @@
 package secao16.aplication;
 
+import secao16.chessLayer.model.entities.ChessMatch;
 import secao16.chessLayer.model.entities.ChessPiece;
 import secao16.chessLayer.model.entities.ChessPosition;
 import secao16.chessLayer.model.enums.Color;
@@ -43,6 +44,13 @@ public class UI {
         } catch (RuntimeException e) {
             throw new InputMismatchException("Error reading ChessPosition. Valid values are from a1 to h8.");
         }
+    }
+
+    public static void printMatch(ChessMatch chessMatch) {
+        printBoard(chessMatch.getPieces());
+        System.out.println();
+        System.out.println("Turn: " + chessMatch.getTurn());
+        System.out.println("Waiting Player: " + chessMatch.getCurrentPlayer());
     }
 
     public static void printBoard(ChessPiece[][] pieces) {
