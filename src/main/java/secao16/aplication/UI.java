@@ -5,8 +5,11 @@ import secao16.chessLayer.model.entities.ChessPiece;
 import secao16.chessLayer.model.entities.ChessPosition;
 import secao16.chessLayer.model.enums.Color;
 
+import java.util.Arrays;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class UI {
     // https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
@@ -46,9 +49,10 @@ public class UI {
         }
     }
 
-    public static void printMatch(ChessMatch chessMatch) {
+    public static void printMatch(ChessMatch chessMatch, List<ChessPiece> capturedPieces) {
         printBoard(chessMatch.getPieces());
         System.out.println();
+        printCapturedPieces(capturedPieces);
         System.out.println("Turn: " + chessMatch.getTurn());
         System.out.println("Waiting Player: " + chessMatch.getCurrentPlayer());
     }
@@ -87,9 +91,23 @@ public class UI {
                 System.out.print(ANSI_WHITE + piece + ANSI_RESET);
             }
             else {
-                System.out.print(ANSI_YELLOW + piece + ANSI_RESET);
+                System.out.print(ANSI_BLACK + piece + ANSI_RESET);
             }
         }
         System.out.print(" ");
+    }
+
+    private static void printCapturedPieces(List<ChessPiece> captured) {
+        List<ChessPiece> whiteCapturedPieces = captured.stream().filter(whitePiece -> whitePiece.getColor() == Color.WHITE).collect(Collectors.toList());
+        List<ChessPiece> blackCapturedPieces = captured.stream().filter(blackPiece -> blackPiece.getColor() == Color.BLACK).collect(Collectors.toList());
+        System.out.println("Captured Pieces:");
+        System.out.print("White: ");
+        System.out.print(ANSI_WHITE);
+        System.out.println(Arrays.toString(whiteCapturedPieces.toArray()));
+        System.out.print(ANSI_RESET);
+        System.out.print("Black: ");
+        System.out.print(ANSI_BLACK);
+        System.out.println(Arrays.toString(blackCapturedPieces.toArray()));
+        System.out.print(ANSI_RESET);
     }
 }
