@@ -7,7 +7,6 @@ import secao16.chessLayer.model.entities.chessPieces.*;
 import secao16.chessLayer.model.enums.Color;
 import secao16.chessLayer.model.exceptions.ChessException;
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -123,7 +122,7 @@ public class ChessMatch {
             throw new IllegalStateException("There is no piece to be promoted.");
         }
         if (!chessPieceType.equals("B") && !chessPieceType.equals("N") && !chessPieceType.equals("R") && !chessPieceType.equals("Q")) {
-            throw new InvalidParameterException("Invalid type for promotion.");
+            return promoted;
         }
 
         Position position = promoted.getChessPosition().toPosition();
